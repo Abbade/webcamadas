@@ -9,9 +9,9 @@ public interface InterfaceAlunoDAO
 {
 	public void cadastrarAluno(Aluno _aluno) throws SQLException;
 	public List<Aluno> listartodos() throws SQLException;
-	public boolean consultarAluno(int _matricula) throws SQLException;
-	public Boolean deletar(int _matricula) throws SQLException;
-	public Boolean atualizar(Aluno _aluno) throws SQLException;
+	public Aluno consultarAluno(int _matricula) throws SQLException;
+	public boolean deletar(int _matricula) throws SQLException;
+	public boolean atualizar(Aluno _aluno) throws SQLException;
 	
 	
 	
