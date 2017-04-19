@@ -7,7 +7,8 @@ PRIMARY KEY(idCurso));
 
 CREATE TABLE Aluno (
   matricula SERIAL  NOT NULL ,
-  senha VARCHAR(20)      ,
+  senha VARCHAR(20)   NOT NULL ,
+  nome VARCHAR(45)   NOT NULL   ,
 PRIMARY KEY(matricula));
 
 
@@ -42,7 +43,7 @@ CREATE TABLE Album (
   Disciplina_idDisciplina INTEGER   NOT NULL ,
   AlunoMatriculado_Curso_idCurso INTEGER   NOT NULL ,
   descricao VARCHAR(45)    ,
-  dataCriacao DATE      ,
+  dataCriacao DATETIME      ,
 PRIMARY KEY(idAlbum),
   FOREIGN KEY(AlunoMatriculado_Aluno_matricula, AlunoMatriculado_Curso_idCurso)
     REFERENCES AlunoMatriculado(Aluno_matricula, Curso_idCurso),
@@ -57,8 +58,7 @@ CREATE TABLE Foto (
   Disciplina_idDisciplina INTEGER   NOT NULL ,
   Album_idAlbum INTEGER   NOT NULL ,
   AlunoMatriculado_Curso_idCurso INTEGER   NOT NULL ,
-  permissao BOOL  DEFAULT FALSE  ,
-  dataCriacao DATE      ,
+  permissao BOOL  DEFAULT FALSE    ,
 PRIMARY KEY(idFoto),
   FOREIGN KEY(AlunoMatriculado_Aluno_matricula, AlunoMatriculado_Curso_idCurso)
     REFERENCES AlunoMatriculado(Aluno_matricula, Curso_idCurso),
