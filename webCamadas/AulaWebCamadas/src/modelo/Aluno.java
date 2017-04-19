@@ -19,6 +19,9 @@ public class Aluno implements Serializable {
 		this.senha = _senha;
 		this.setNome(_nome);
 	}
+	public Aluno(){
+		
+	}
 
 	public int getMatricula() {
 		return matricula;
