@@ -7,6 +7,6 @@
 	<title>Minha primeira APP JSP</title>
 </head>
 <body>
-	<a href="ListarPessoasServlet">Listar Pessoas</a>
+	<a href="\AulaWebCamadas\src\controle\ListarAlunosServlet.java">Listar Alunos</a>
 </body>
 </html>

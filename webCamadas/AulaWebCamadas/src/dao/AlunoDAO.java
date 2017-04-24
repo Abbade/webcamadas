@@ -36,7 +36,7 @@ public class AlunoDAO implements InterfaceAlunoDAO {
 	}
 
 	@Override
-	public List<Aluno> listartodos() throws SQLException {
+	public List<Aluno> listarTodos() throws SQLException {
 		
 		List<Aluno> listaAlunos = new ArrayList<Aluno>();
 		
@@ -110,7 +110,7 @@ public class AlunoDAO implements InterfaceAlunoDAO {
 	@Override
 	public boolean atualizar(Aluno _aluno) throws SQLException {
 		
-		String comando = "update pessoa set nome = ?, senha = ? where matricula = ?";
+		String comando = "update aluno set nome = ?, senha = ? where matricula = ?";
 
 		PreparedStatement ps = this.conexao.prepareStatement(comando);
 		
