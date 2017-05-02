@@ -7,8 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+import modelo.Album;
 import modelo.Disciplina;
 
 public class DisciplinaDAO implements InterfaceDisciplinaDAO {
@@ -34,13 +33,15 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
 	}
 
 	@Override
-	public List<Disciplina> listarTodos() throws SQLException {
+	public List<Disciplina> listarTodos(int _idCurso) throws SQLException {
 	
 		List<Disciplina> listaDisciplinas = new ArrayList<Disciplina>();
 		
-		String comando = "select * from Disciplina";
+		String comando = "select * from Disciplina where idCurso = ?";
 		
 		PreparedStatement ps = this.conexao.prepareStatement(comando);
+		
+		ps.setInt(1, _idCurso);
 		
 		ResultSet rs = ps.executeQuery();
 		
@@ -108,6 +109,14 @@ public class DisciplinaDAO implements InterfaceDisciplinaDAO {
 	
 
 		return ps.execute();
+	}
+
+	@Override
+	public List<Album> listarAlbuns(int _idCurso, int _idDisciplina) throws SQLException {
+		
+		AlbumDAO album = new AlbumDAO(this.conexao);
+		
+		return album.listarTodos(_idCurso, _idDisciplina);
 	}
 	
 

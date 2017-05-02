@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.AlunoMatriculado;
 import modelo.Curso;
+import modelo.Disciplina;
 
 
 public class CursoDAO implements InterfaceCursoDAO {
@@ -112,4 +114,21 @@ public class CursoDAO implements InterfaceCursoDAO {
 		return ps.execute();
 	}
 
+	@Override
+	public List<Disciplina> listarDisciplinas(int _idCurso) throws SQLException {
+		
+		DisciplinaDAO disciplina = new DisciplinaDAO(this.conexao);
+		
+		return disciplina.listarTodos(_idCurso);
+	}
+
+	@Override
+	public List<AlunoMatriculado> listarAlunos(int _idCurso) throws SQLException {
+		
+		AlunoMatriculadoDAO aluno = new AlunoMatriculadoDAO(this.conexao);
+		
+		return aluno.listarTodos(_idCurso);
+	}
+		
+		
 }

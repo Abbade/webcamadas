@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Curso implements Serializable {
 	
@@ -8,9 +9,14 @@ public class Curso implements Serializable {
 	
 	private int idCurso;
 	private String nome;
+	private List<Disciplina> disci;
+	
+	
+	public Curso(){
+		
+	}
+	
 
-	
-	
 	public Curso(int _idCurso, String _nome){
 		
 		this.setidCurso(_idCurso);
@@ -21,9 +27,7 @@ public class Curso implements Serializable {
 		this.setNome(_nome);
 	}
 
-	public Curso(){
-		
-	}
+
 	
 
 	
@@ -46,6 +50,16 @@ public class Curso implements Serializable {
 	
 	public void setidCurso (int _idCurso){
 		this.idCurso = _idCurso;
+	}
+
+
+	public List<Disciplina> getDisci() {
+		return disci;
+	}
+
+
+	public void setDisci(List<Disciplina> disci) {
+		this.disci = disci;
 	}
 	
 	

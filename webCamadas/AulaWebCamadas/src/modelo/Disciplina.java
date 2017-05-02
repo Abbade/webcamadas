@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Disciplina implements Serializable  {
 
@@ -10,6 +11,7 @@ public class Disciplina implements Serializable  {
 	private String nome;
 	private int periodo;
 	private String tipo;
+	private List<Album> albuns;
 	
 	public Disciplina(int _idDisciplina, String _nome){
 		
@@ -51,6 +53,14 @@ public class Disciplina implements Serializable  {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public List<Album> getAlbuns() {
+		return albuns;
+	}
+
+	public void setAlbuns(List<Album> albuns) {
+		this.albuns = albuns;
 	}
 	
 	

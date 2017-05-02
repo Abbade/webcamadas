@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Aluno;
+import modelo.Album;
 import modelo.AlunoMatriculado;
 
 public class AlunoMatriculadoDAO implements InterfaceAlunoMatriculadoDAO{
@@ -19,7 +19,7 @@ public class AlunoMatriculadoDAO implements InterfaceAlunoMatriculadoDAO{
 	}
 
 	@Override
-	public void cadastrarMatricula(AlunoMatriculado _aluno) throws dao.SQLException {
+	public void cadastrarMatricula(AlunoMatriculado _aluno) throws SQLException {
 
 		String comando = "INSERT INTO AlunoMatriculado values(?,?); ";
 
@@ -99,11 +99,43 @@ public class AlunoMatriculadoDAO implements InterfaceAlunoMatriculadoDAO{
 
 		PreparedStatement ps = this.conexao.prepareStatement(comando);
 		
-		ps.setString(1, _aluno.getIdCurso());
-		ps.setString(2, _aluno.getMatricula());
+		ps.setInt(1, _aluno.getIdCurso());
+		ps.setInt(2, _aluno.getMatricula());
 		
 
 
 		return ps.execute();
+	}
+
+	@Override
+	public List<AlunoMatriculado> listarTodos(int _idCurso) throws SQLException {
+		
+		List<AlunoMatriculado> listaAlunos = new ArrayList<AlunoMatriculado>();
+		
+		String comando = "select * from alunoMatriculado where idCurso = ?";
+		
+		PreparedStatement ps = this.conexao.prepareStatement(comando);
+		
+		ps.setInt(1, _idCurso);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		while (rs.next()) {
+
+			int matricula = rs.getInt(1);
+			int idCurso = rs.getInt(2);
+			
+			listaAlunos.add(new AlunoMatriculado(matricula, idCurso) );
+		}
+		
+		return listaAlunos;
+	}
+
+	@Override
+	public List<Album> listarAlbuns(int _matricula, int _idCurso) throws SQLException {
+
+		AlbumDAO album = new AlbumDAO(this.conexao);
+		
+		return album.listarTodos(_matricula, _idCurso);
 	}
 }
