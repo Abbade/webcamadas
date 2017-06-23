@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" 
+	template="/template/template.xhtml">
+
+	<ui:define name="cabecalho">
+		<ui:include src="/includes/cabecalho.xhtml" />
+	</ui:define>
+	
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml" />
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		
+		<h:form id="fTabela">
+		    <p:dataTable id="dtAluno" var="p" value="#{AlunoBean.alunos}" rows="10"
+                     paginator="true" emptyMessage="Nenhum registro encontrado!!!"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+                     	{PreviousPageLink} {PageLinks} {NextPageLink} 
+                     	{LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15">
+                     
+                <f:facet name="header">Listagem de Alunos</f:facet>
+		        
+		        <p:column headerText="matricula">
+		            <h:outputText value="#{p.matricula}" />
+		        </p:column>
+		 
+		        <p:column headerText="Nome">
+		            <h:outputText value="#{p.nome}" />
+		        </p:column>
+		 
+		 
+		        <p:column headerText="...">
+		            
+		            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgEditarAluno').show();"
+		            	actionListener="#{AlunoBean.prepararEditar}" 
+		            	update=":fEditar:pgEditar"/>
+		            
+		            <p:commandButton icon="ui-icon-trash" oncomplete="PF('dlgExcluirAluno').show();"
+		            	actionListener="#{AlunoBean.prepararExcluir}"
+		            	update=":fExcluir:pgExcluir"/>
+		            
+		        </p:column>
+		        
+		        <f:facet name="footer">
+		        	<p:commandButton value="Nova Aluno" oncomplete="PF('dlgNovaAluno').show();"
+		        		actionListener="#{AlunoBean.prepararNovo}" update=":fCadastrar:pgCadastrar" />
+		        </f:facet>
+		        
+		    </p:dataTable>
+		    
+		</h:form>
+	
+		<p:dialog header="Novo Aluno" widgetVar="dlgNovoAluno" 
+			height="180" width="400" modal="true" appendTo="@(body)"
+			draggable="false" resizable="false" closable="false" >
+		
+			<h:form id="fCadastrar">
+			
+				<p:panelGrid id="pgCadastrar" columns="2">
+					
+					<p:outputLabel value="Nome:" />
+					<p:inputText value="#{alunoBean.aluno.nome}" />
+					
+					<p:outputLabel value="Matricula:" />
+					<p:inputText value="#{alunoBean.aluno.matricula}" />
+				
+				</p:panelGrid>
+				
+				<p:panelGrid columns="2">
+				
+					<p:commandButton value="Cadastrar" 
+						actionListener="#{alunoBean.cadastrarAluno}" 
+						oncomplete="PF('dlgNovoAluno').hide();"
+						update=":fTabela:dtAluno" />
+					
+					<p:commandButton value="Cancelar" 
+						oncomplete="PF('dlgNovoAluno').hide();"/>
+				
+				</p:panelGrid>
+			
+			</h:form>
+		
+		</p:dialog>
+		
+		<p:dialog header="Editar Aluno" widgetVar="dlgEditarAluno" 
+			height="180" width="400" modal="true" appendTo="@(body)"
+			draggable="false" resizable="false" closable="false" >
+		
+			<h:form id="fEditar">
+			
+				<p:panelGrid id="pgEditar" columns="2">
+					
+					<p:outputLabel value="ID:" />
+					<p:outputLabel value="#{alunoBean.aluno.id}" />
+					
+					<p:outputLabel value="Nome:" />
+					<p:inputText value="#{alunoBean.aluno.nome}" />
+					
+					<p:outputLabel value="Tel:" />
+					<p:inputText value="#{alunoBean.aluno.tel}" />
+					
+					<p:outputLabel value="Dt. Cadastro:" />
+					<p:outputLabel value="#{alunoBean.aluno.dtCadastro}" />
+				
+				</p:panelGrid>
+				
+				<p:panelGrid columns="2">
+				
+					<p:commandButton value="Editar" 
+						actionListener="#{alunoBean.editarAluno}" 
+						oncomplete="PF('dlgEditarAluno').hide();"
+						update=":fTabela:dtAluno" />
+					
+					<p:commandButton value="Cancelar" 
+						oncomplete="PF('dlgEditarAluno').hide();"/>
+				
+				</p:panelGrid>
+			
+			</h:form>
+		
+		</p:dialog>
+		
+		<p:dialog header="Excluir Aluno" widgetVar="dlgExcluirAluno" 
+			height="180" width="400" modal="true" appendTo="@(body)"
+			draggable="false" resizable="false" closable="false" >
+		
+			<h:form id="fExcluir">
+			
+				<p:panelGrid id="pgExcluir" columns="2">
+					
+					<p:outputLabel value="ID:" />
+					<p:outputLabel value="#{alunoBean.aluno.id}" />
+					
+					<p:outputLabel value="Nome:" />
+					<p:outputLabel value="#{alunoBean.aluno.nome}" />
+				
+				</p:panelGrid>
+				
+				<p:panelGrid columns="2">
+				
+					<p:commandButton value="Excluir" 
+						actionListener="#{alunoBean.excluirAluno}" 
+						oncomplete="PF('dlgExcluirAluno').hide();"
+						update=":fTabela:dtAluno" />
+					
+					<p:commandButton value="Cancelar" 
+						oncomplete="PF('dlgExcluirAluno').hide();"/>
+				
+				</p:panelGrid>
+			
+			</h:form>
+		
+		</p:dialog>
+	
+	</ui:define>	
+	
+	<ui:define name="rodape">
+		<ui:include src="/includes/rodape.xhtml" />
+	</ui:define>
+	
+</ui:composition>
